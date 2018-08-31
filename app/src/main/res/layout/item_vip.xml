@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="74dp"
+    android:background="#fff"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="@drawable/shape_text_bg_to_enter_account"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_vertical" />
+
+    <LinearLayout
+        android:layout_marginStart="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="瑶瑶"
+                android:textColor="#ff070707"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:src="@mipmap/img_orange_vip" />
+        </LinearLayout>
+
+
+        <TextView
+            android:text="13925668866"
+            android:textColor="#ff666666"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:gravity="end"
+        android:layout_weight="1"
+android:layout_gravity="center_vertical"
+        android:text="2018-08-01"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="提现账号"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="#null"
+                android:hint="请输入银行卡账号"
+                android:textColorHint="#ffcccccc"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:background="#E6E6E6" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp">
+
+            <TextView
+
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="账户名"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="#null"
+                android:hint="请输入银行卡账户名"
+                android:textColorHint="#ffcccccc"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:background="#E6E6E6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="银行名称"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="#null"
+                android:hint="请选择开户行名称"
+                android:textColorHint="#ffcccccc"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:padding="10dp"
+                android:src="@mipmap/img_arrow_right_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingEnd="18dp"
+        android:paddingStart="18dp">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="提现金额"
+            android:textColor="#ff666666"
+            android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="#null"
+            android:hint="请输入提现金额"
+            android:textColorHint="#ffcccccc"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="18dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="可提现金额："
+            android:textColor="#ff999999"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+        <TextView
+            android:text="¥800.00"
+            android:textColor="#FF6E00"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:textColor="#fff"
+        android:text="提交"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:background="@drawable/shape_text_bg_to_enter_account"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
