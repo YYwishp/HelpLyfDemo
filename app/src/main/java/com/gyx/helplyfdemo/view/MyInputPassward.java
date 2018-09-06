@@ -3,6 +3,7 @@ package com.gyx.helplyfdemo.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -41,9 +42,9 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	 */
 	private boolean isAutoCloseKeyBoard = true;
 	/**
-	 * 是否只能输入数字
+	 * 是否有圆角
 	 */
-	private boolean isNumber;
+	private boolean isCorner;
 	/**
 	 * 横向间距
 	 */
@@ -81,6 +82,10 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	 */
 	private int broderColor;
 	/**
+	 * 虚线颜色
+	 */
+	private int dottedColor;
+	/**
 	 * 默认框框颜色
 	 */
 	private int rectNormalColor;
@@ -92,9 +97,13 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	 * 是否是阿拉伯国家
 	 */
 	private boolean isArCountry = false;
-
+	/**
+	 * 圆角角度
+	 */
 	private float radian = 15;
 	private Paint borderPaint;
+	private Paint dottedPaint;
+	private int broderWidt;
 
 	///////////////////////////////////////////////////////////////////////////
 	// 以上是属性
@@ -119,10 +128,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		isPwd = pwd;
 	}
 
-	public void setIsNumber(boolean number) {
-		isNumber = number;
 
-	}
 
 	public void setWidthSpace(int widthSpace) {
 		this.widthSpace = widthSpace;
@@ -207,7 +213,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MyPasswordInputEdt, defStyleAttr, 0);
 		isPwd = a.getBoolean(R.styleable.MyPasswordInputEdt_isPwd, true);
 		isAutoCloseKeyBoard = a.getBoolean(R.styleable.MyPasswordInputEdt_autoCloseKeyBoard, true);
-		isNumber = a.getBoolean(R.styleable.MyPasswordInputEdt_isNumber, true);
+
 		widthSpace = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_widthSpace, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()));
 		pwdType_CircleRadius = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_circleRadius, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()));
 		heightSpace = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_heightSpace, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()));
@@ -216,7 +222,14 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		isBgFill = a.getBoolean(R.styleable.MyPasswordInputEdt_bgFill, false);
 		numLength = a.getInt(R.styleable.MyPasswordInputEdt_numLength, 6);
 		textColor = a.getColor(R.styleable.MyPasswordInputEdt_textColor, 0xff666666);
+
+		isCorner = a.getBoolean(R.styleable.MyPasswordInputEdt_isCorner, true);
+		//圆角边框颜色
 		broderColor = a.getColor(R.styleable.MyPasswordInputEdt_broderColor, 0xff666666);
+		//圆角边框厚度
+		broderWidt = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_broderWidt, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+		//虚线颜色
+		dottedColor = a.getColor(R.styleable.MyPasswordInputEdt_dottedColor, 0xff666666);
 		rectNormalColor = a.getColor(R.styleable.MyPasswordInputEdt_rectNormalColor, 0xff808080);
 		rectChooseColor = a.getColor(R.styleable.MyPasswordInputEdt_rectChooseColor, 0xff44ce61);
 		pwdType = a.getInt(R.styleable.MyPasswordInputEdt_pwdType, 0) == 0 ? PwdType.CIRCLE : PwdType.XINGHAO;
@@ -273,20 +286,26 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	}
 
 	private void init() {
+		//矩形体
 		rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		//文字
 		textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		//圆角边框
 		borderPaint = new Paint((Paint.ANTI_ALIAS_FLAG));
+		//虚线
+		dottedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		//
 		borderPaint.setStyle(Paint.Style.STROKE);
+		dottedPaint.setStyle(Paint.Style.STROKE);
+		textPaint.setStyle(Paint.Style.FILL);
+		dottedPaint.setStrokeWidth(3);
+		borderPaint.setStrokeWidth(broderWidt);
 		textRect = new Rect();
 		setBackgroundDrawable(null);
 		setLongClickable(false);
 		setTextIsSelectable(false);
 		setCursorVisible(false);
-		textPaint.setAntiAlias(true);
-		textPaint.setStyle(Paint.Style.FILL);
-//		if (isNumber) {
-//			setInputType(InputType.TYPE_CLASS_NUMBER);
-//		}
+
 
 	}
 
@@ -356,33 +375,11 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		}
 		rectPaint.setStrokeWidth(rectStroke);
 		borderPaint.setColor(broderColor);
+		dottedPaint.setColor(dottedColor);
 		textPaint.setColor(textColor);
 		textPaint.setTextSize(txtSize);
 
-//		if (isNumber) {
-//			setInputType(InputType.TYPE_CLASS_NUMBER);
-//		}
 		int width = Math.min(getMeasuredHeight(), getMeasuredWidth() / numLength);
-//		rectPaint.setStrokeWidth(rectStroke);
-//		textPaint.setColor(textColor);
-//		textPaint.setTextSize(txtSize);
-//		int width = Math.min(getMeasuredHeight(), getMeasuredWidth() / numLength);
-//		for (int i = 0; i < numLength; i++) {
-//			if (i <= text.length() && isFocus) {
-//				rectPaint.setColor(0xff28262f);
-//			} else {
-//				rectPaint.setColor(0xff28262f);
-//			}
-////			Rect rect = new Rect(i * width + 10, 10, i * width + width - 10, width - 10);
-//			Rect rect = new Rect((numLength - 1 - i) * width + widthSpace, heightSpace, (numLength - i) * width - widthSpace, width - heightSpace);
-//			canvas.drawRect(rect, rectPaint);
-//			list.add(rect);
-//		}
-//		for (int i = 0; i < text.length(); i++) {
-//			textPaint.getTextBounds("0", 0, 1, textRect);
-//			canvas.drawText("*", list.get(text.length() - i - 1).left + (list.get(text.length() - i - 1).right - list.get(text.length() - i - 1).left) / 2 - textRect.width() / 2,
-//					list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
-//		}
 
 
 
@@ -399,30 +396,43 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 					rectPaint.setColor(rectNormalColor);
 				}
 				Rect rect = new Rect(i * width + widthSpace, heightSpace, i * width + width - widthSpace, width - heightSpace);
-				canvas.drawRect(rect, rectPaint);
-				Path path = new Path();
-				path.moveTo(i * width + widthSpace,heightSpace+radian);
-				path.quadTo(i * width + widthSpace,heightSpace,i * width + widthSpace+radian,heightSpace);
-				path.lineTo(i * width + width - widthSpace - radian, heightSpace);
-				path.quadTo(i * width + width - widthSpace,heightSpace,i * width + width - widthSpace,heightSpace+radian);
-				path.lineTo(i * width + width - widthSpace,width - heightSpace-radian);
-				path.quadTo(i * width + width - widthSpace,width - heightSpace,i * width + width - widthSpace-radian,width - heightSpace);
-				path.lineTo(i * width + widthSpace+radian,width - heightSpace);
-				path.quadTo(i * width + widthSpace, width - heightSpace, i * width + widthSpace, width - heightSpace - radian);
-				path.lineTo(i * width + widthSpace,heightSpace+radian);
-
-				//画出圆角矩形
-				canvas.drawPath(path, borderPaint);
-
-
-
 				list.add(rect);
+				if (isCorner) {
+					Path path = new Path();
+					path.moveTo(i * width + widthSpace, heightSpace + radian);
+					path.quadTo(i * width + widthSpace, heightSpace, i * width + widthSpace + radian, heightSpace);
+					path.lineTo(i * width + width - widthSpace - radian, heightSpace);
+					path.quadTo(i * width + width - widthSpace, heightSpace, i * width + width - widthSpace, heightSpace + radian);
+					path.lineTo(i * width + width - widthSpace, width - heightSpace - radian);
+					path.quadTo(i * width + width - widthSpace, width - heightSpace, i * width + width - widthSpace - radian, width - heightSpace);
+					path.lineTo(i * width + widthSpace + radian, width - heightSpace);
+					path.quadTo(i * width + widthSpace, width - heightSpace, i * width + widthSpace, width - heightSpace - radian);
+					path.lineTo(i * width + widthSpace, heightSpace + radian);
+					//画出带圆角矩形的实心体
+					canvas.drawPath(path, rectPaint);
+					//画出带圆角矩形的边框
+					canvas.drawPath(path, borderPaint);
+				} else {
+					canvas.drawRect(rect, rectPaint);
+				}
+
+
+				//最后一个画虚线
+				if (i==text.length()) {
+					Path dashPath = new Path();
+					dashPath.moveTo(i * width + widthSpace, heightSpace);
+					dashPath.lineTo(i * width + width - widthSpace, heightSpace);
+					dashPath.lineTo(i * width + width - widthSpace, width - heightSpace);
+					dashPath.lineTo(i * width + widthSpace, width - heightSpace);
+					dashPath.lineTo(i * width + widthSpace, heightSpace);
+					//画虚线
+					dottedPaint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+					canvas.drawPath(dashPath, dottedPaint);
+				}
+
 			}
+			//画文字
 			for (int i = 0; i < text.length(); i++) {
-//				textPaint.getTextBounds(text.substring(i, i + 1), 0, 1, textRect);
-//				canvas.drawText("*", list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - textRect.width() / 2,
-//						list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
-				///////////////////////////
 				if (isPwd) {
 					switch (pwdType) {
 						case CIRCLE:
@@ -430,15 +440,22 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 							break;
 						case XINGHAO:
 							textPaint.getTextBounds("*", 0, 1, textRect);
-							canvas.drawText("*", list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - textRect.width() / 2,
+							int text_width = (int)textPaint.measureText("*");//测量文字的宽度
+							canvas.drawText("*", list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - text_width / 2,
 									list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height(), textPaint);
 							break;
 					}
 				} else {
+					//文字的最小矩形
 					textPaint.getTextBounds(text.substring(i, i + 1), 0, 1, textRect);
-					canvas.drawText(text.substring(i, i + 1), list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - textRect.width() / 2,
+					int text_width = (int)textPaint.measureText(text.substring(i, i + 1));//测量文字的宽度
+//					canvas.drawText(text.substring(i, i + 1), list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - textRect.width() / 2,
+//							list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
+					canvas.drawText(text.substring(i, i + 1), list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - text_width / 2,
 							list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
 				}
+
+
 
 
 
@@ -455,6 +472,11 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 //			Rect rect = new Rect(i * width + 10, 10, i * width + width - 10, width - 10);
 				Rect rect = new Rect((numLength - 1 - i) * width + widthSpace, heightSpace, (numLength - i) * width - widthSpace, width - heightSpace);
 				canvas.drawRect(rect, rectPaint);
+
+
+
+
+
 				list.add(rect);
 			}
 			for (int i = 0; i < text.length(); i++) {

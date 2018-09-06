@@ -85,10 +85,12 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 		});
 	}
 
-
+	private long endTime = 0;
 	private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+			//博主手机不好，经常点一次却触发两次`onKey`事件，就设置了一个防止多点击，间隔100毫秒。
+			long startTime = System.currentTimeMillis();
 			String amount = password.getTextToStirng();
 			if (position < 11 && position != 9) {
 				if (6 > amount.length()) {
@@ -104,10 +106,11 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 			}
 			//验证码
 			passWord = password.getTextToStirng();
-//			if (6 == passWord.length()) {
-//				virtualKeyboardView.startAnimation(exitAnim);
-//				virtualKeyboardView.setVisibility(View.GONE);
-//			}
+			if (6 == passWord.length()&& startTime - endTime > 100) {
+				virtualKeyboardView.startAnimation(exitAnim);
+				virtualKeyboardView.setVisibility(View.GONE);
+				endTime = startTime;
+			}
 		}
 	};
 

@@ -10,8 +10,7 @@
         <attr name="isPwd" format="boolean" />
         <!--是否自动关闭键盘-->
         <attr name="autoCloseKeyBoard" format="boolean" />
-        <!---->
-        <attr name="isNumber" format="boolean" />
+
         <!--每个输入框的，宽高占位-->
         <attr name="widthSpace" format="dimension" />
         <attr name="heightSpace" format="dimension" />
@@ -28,8 +27,14 @@
         <attr name="rectNormalColor" format="color" />
         <!--选中的颜色-->
         <attr name="rectChooseColor" format="color" />
+        <!--是否需要圆角-->
+        <attr name="isCorner" format="boolean" />
         <!--圆角矩形颜色-->
         <attr name="broderColor" format="color" />
+        <!--圆角矩形边框厚度-->
+        <attr name="broderWidt" format="dimension" />
+        <!--虚线颜色-->
+        <attr name="dottedColor" format="color" />
         <attr name="pwdType" format="enum" >
             <enum name="CIRCLE" value="0"/>
             <enum name="XINGHAO" value="1"/>
