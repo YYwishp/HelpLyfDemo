@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -76,6 +77,10 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	 */
 	private int textColor;
 	/**
+	 * 圆角边框颜色
+	 */
+	private int broderColor;
+	/**
 	 * 默认框框颜色
 	 */
 	private int rectNormalColor;
@@ -87,6 +92,9 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	 * 是否是阿拉伯国家
 	 */
 	private boolean isArCountry = false;
+
+	private float radian = 15;
+	private Paint borderPaint;
 
 	///////////////////////////////////////////////////////////////////////////
 	// 以上是属性
@@ -208,6 +216,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		isBgFill = a.getBoolean(R.styleable.MyPasswordInputEdt_bgFill, false);
 		numLength = a.getInt(R.styleable.MyPasswordInputEdt_numLength, 6);
 		textColor = a.getColor(R.styleable.MyPasswordInputEdt_textColor, 0xff666666);
+		broderColor = a.getColor(R.styleable.MyPasswordInputEdt_broderColor, 0xff666666);
 		rectNormalColor = a.getColor(R.styleable.MyPasswordInputEdt_rectNormalColor, 0xff808080);
 		rectChooseColor = a.getColor(R.styleable.MyPasswordInputEdt_rectChooseColor, 0xff44ce61);
 		pwdType = a.getInt(R.styleable.MyPasswordInputEdt_pwdType, 0) == 0 ? PwdType.CIRCLE : PwdType.XINGHAO;
@@ -264,8 +273,10 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	}
 
 	private void init() {
-		rectPaint = new Paint();
-		textPaint = new Paint();
+		rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		borderPaint = new Paint((Paint.ANTI_ALIAS_FLAG));
+		borderPaint.setStyle(Paint.Style.STROKE);
 		textRect = new Rect();
 		setBackgroundDrawable(null);
 		setLongClickable(false);
@@ -344,6 +355,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 			rectPaint.setStyle(Paint.Style.STROKE);
 		}
 		rectPaint.setStrokeWidth(rectStroke);
+		borderPaint.setColor(broderColor);
 		textPaint.setColor(textColor);
 		textPaint.setTextSize(txtSize);
 
@@ -388,6 +400,22 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 				}
 				Rect rect = new Rect(i * width + widthSpace, heightSpace, i * width + width - widthSpace, width - heightSpace);
 				canvas.drawRect(rect, rectPaint);
+				Path path = new Path();
+				path.moveTo(i * width + widthSpace,heightSpace+radian);
+				path.quadTo(i * width + widthSpace,heightSpace,i * width + widthSpace+radian,heightSpace);
+				path.lineTo(i * width + width - widthSpace - radian, heightSpace);
+				path.quadTo(i * width + width - widthSpace,heightSpace,i * width + width - widthSpace,heightSpace+radian);
+				path.lineTo(i * width + width - widthSpace,width - heightSpace-radian);
+				path.quadTo(i * width + width - widthSpace,width - heightSpace,i * width + width - widthSpace-radian,width - heightSpace);
+				path.lineTo(i * width + widthSpace+radian,width - heightSpace);
+				path.quadTo(i * width + widthSpace, width - heightSpace, i * width + widthSpace, width - heightSpace - radian);
+				path.lineTo(i * width + widthSpace,heightSpace+radian);
+
+				//画出圆角矩形
+				canvas.drawPath(path, borderPaint);
+
+
+
 				list.add(rect);
 			}
 			for (int i = 0; i < text.length(); i++) {
@@ -411,6 +439,10 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 					canvas.drawText(text.substring(i, i + 1), list.get(i).left + (list.get(i).right - list.get(i).left) / 2 - textRect.width() / 2,
 							list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
 				}
+
+
+
+
 			}
 			//阿拉伯国家
 		} else {

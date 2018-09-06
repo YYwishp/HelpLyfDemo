@@ -8,18 +8,28 @@
     <declare-styleable name="MyPasswordInputEdt">
 
         <attr name="isPwd" format="boolean" />
+        <!--是否自动关闭键盘-->
         <attr name="autoCloseKeyBoard" format="boolean" />
+        <!---->
         <attr name="isNumber" format="boolean" />
+        <!--每个输入框的，宽高占位-->
         <attr name="widthSpace" format="dimension" />
         <attr name="heightSpace" format="dimension" />
+        <!--背景颜色画笔厚度-->
         <attr name="rectStroke" format="dimension" />
         <attr name="txtSize" format="dimension" />
+        <!--密码模式圆直径-->
         <attr name="circleRadius" format="dimension" />
+        <!--背景颜色是否填充-->
         <attr name="bgFill" format="boolean" />
         <attr name="numLength" format="integer" />
         <attr name="textColor" format="color" />
+        <!--一般的颜色-->
         <attr name="rectNormalColor" format="color" />
+        <!--选中的颜色-->
         <attr name="rectChooseColor" format="color" />
+        <!--圆角矩形颜色-->
+        <attr name="broderColor" format="color" />
         <attr name="pwdType" format="enum" >
             <enum name="CIRCLE" value="0"/>
             <enum name="XINGHAO" value="1"/>
