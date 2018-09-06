@@ -104,6 +104,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 	private Paint borderPaint;
 	private Paint dottedPaint;
 	private int broderWidt;
+	private boolean isNeedDash;
 
 	///////////////////////////////////////////////////////////////////////////
 	// 以上是属性
@@ -224,10 +225,11 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		textColor = a.getColor(R.styleable.MyPasswordInputEdt_textColor, 0xff666666);
 
 		isCorner = a.getBoolean(R.styleable.MyPasswordInputEdt_isCorner, true);
+		isNeedDash = a.getBoolean(R.styleable.MyPasswordInputEdt_isNeedDash, true);
 		//圆角边框颜色
 		broderColor = a.getColor(R.styleable.MyPasswordInputEdt_broderColor, 0xff666666);
 		//圆角边框厚度
-		broderWidt = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_broderWidt, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+		broderWidt = a.getDimensionPixelSize(R.styleable.MyPasswordInputEdt_broderWidth, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
 		//虚线颜色
 		dottedColor = a.getColor(R.styleable.MyPasswordInputEdt_dottedColor, 0xff666666);
 		rectNormalColor = a.getColor(R.styleable.MyPasswordInputEdt_rectNormalColor, 0xff808080);
@@ -413,22 +415,24 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 					//画出带圆角矩形的边框
 					canvas.drawPath(path, borderPaint);
 				} else {
+					//普通矩形
 					canvas.drawRect(rect, rectPaint);
 				}
-
-
-				//最后一个画虚线
-				if (i==text.length()) {
-					Path dashPath = new Path();
-					dashPath.moveTo(i * width + widthSpace, heightSpace);
-					dashPath.lineTo(i * width + width - widthSpace, heightSpace);
-					dashPath.lineTo(i * width + width - widthSpace, width - heightSpace);
-					dashPath.lineTo(i * width + widthSpace, width - heightSpace);
-					dashPath.lineTo(i * width + widthSpace, heightSpace);
-					//画虚线
-					dottedPaint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-					canvas.drawPath(dashPath, dottedPaint);
+				if (isNeedDash) {
+					//最后一个画虚线
+					if (i==text.length()) {
+						Path dashPath = new Path();
+						dashPath.moveTo(i * width + widthSpace, heightSpace);
+						dashPath.lineTo(i * width + width - widthSpace, heightSpace);
+						dashPath.lineTo(i * width + width - widthSpace, width - heightSpace);
+						dashPath.lineTo(i * width + widthSpace, width - heightSpace);
+						dashPath.lineTo(i * width + widthSpace, heightSpace);
+						//画虚线
+						dottedPaint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+						canvas.drawPath(dashPath, dottedPaint);
+					}
 				}
+
 
 			}
 			//画文字

@@ -32,7 +32,9 @@
         <!--圆角矩形颜色-->
         <attr name="broderColor" format="color" />
         <!--圆角矩形边框厚度-->
-        <attr name="broderWidt" format="dimension" />
+        <attr name="broderWidth" format="dimension" />
+        <!--是否需要虚线-->
+        <attr name="isNeedDash" format="boolean" />
         <!--虚线颜色-->
         <attr name="dottedColor" format="color" />
         <attr name="pwdType" format="enum" >
