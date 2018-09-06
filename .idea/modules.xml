@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HelpLyfDemo.iml" filepath="$PROJECT_DIR$/HelpLyfDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PasKeyBroad/PasKeyBroad.iml" filepath="$PROJECT_DIR$/PasKeyBroad/PasKeyBroad.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

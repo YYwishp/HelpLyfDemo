@@ -37,7 +37,6 @@
             android:layout_marginEnd="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=""
             android:background="@drawable/shape_text_bg_to_enter_account"
             android:paddingBottom="2dp"
             android:paddingEnd="10dp"
